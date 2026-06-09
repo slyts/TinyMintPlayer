@@ -9,6 +9,10 @@ Release/
 *.filters
 *.user
 *.suo
+*.vcxproj.user
+
+# Qt / CMake
+CMakeUserPresets.json
 
 # Git
 .gitattributes
