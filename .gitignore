@@ -1,0 +1,25 @@
+# Visual Studio
+.vs/
+x64/
+Debug/
+Release/
+*.sln
+*.slnx
+*.vcxproj
+*.filters
+*.user
+*.suo
+
+# Git
+.gitattributes
+
+# Скомпилированные файлы
+*.exe
+*.out
+*.app
+*.o
+*.obj
+
+# Другое
+build/
+*.tmp
