@@ -11,25 +11,96 @@ void MusicPlayer::setAppSettings()
 
 void MusicPlayer::createObjects()
 {
-	layout = new QVBoxLayout(this);
+	mainlayout = new QVBoxLayout(this);
+	playerVContainer = new QVBoxLayout();
+	playerHContainer = new QHBoxLayout();
+	trackInfoContainer = new QVBoxLayout();
+	timeSliderContainer = new QHBoxLayout();
+	infoAndTrackContainer = new QVBoxLayout();
+	centerWrapper = new QHBoxLayout();
 
 	player = new QMediaPlayer(this);
 	audioOutput = new QAudioOutput(this);
 
 	startButton = new QPushButton("Старт", this);
 	openButton = new QPushButton("Открыть Файл", this);
+	nextTrack = new QPushButton("След. Трек", this);
+	previousTrack = new QPushButton("Пред. Трек", this);
+
 	volumeSlider = new QSlider(Qt::Vertical, this);
+
+	volumeSlider->hide(); // Временно
+
 	positionSlider = new QSlider(Qt::Horizontal, this);
-	timeLabel = new QLabel("00:00 / 00:00", this);
+
+	timeLabelStart = new QLabel("00:00", this);
+	timeLabelEnd = new QLabel("00:00", this);
+	trackName = new QLabel("Unknown - Artist", this);
+	
+	trackImage = new QLabel(this);
+
 }
 
 void MusicPlayer::setupUi()
 {
-	layout->addWidget(volumeSlider);
-	layout->addWidget(timeLabel);
-	layout->addWidget(positionSlider);
-	layout->addWidget(startButton);
-	layout->addWidget(openButton);
+	setupTrackInfoArea();
+	setupTimeSliderArea();
+	setupButtonsArea();
+	setupLayouts();
+	applyDefaultStyles();
+}
+
+void MusicPlayer::setupTrackInfoArea()
+{
+	trackInfoContainer->addWidget(trackImage);
+	trackInfoContainer->addWidget(trackName);
+}
+
+void MusicPlayer::setupTimeSliderArea()
+{
+	timeSliderContainer->addWidget(timeLabelStart);
+	timeSliderContainer->addWidget(positionSlider);
+	timeSliderContainer->addWidget(timeLabelEnd);
+}
+
+void MusicPlayer::setupButtonsArea()
+{
+	playerHContainer->addWidget(previousTrack);
+	playerHContainer->addWidget(startButton);
+	playerHContainer->addWidget(nextTrack);
+
+	playerVContainer->addLayout(playerHContainer);
+	playerVContainer->addWidget(openButton);
+}
+
+void MusicPlayer::setupLayouts()
+{
+	mainlayout->addLayout(trackInfoContainer);
+	mainlayout->addLayout(timeSliderContainer);
+	mainlayout->addLayout(playerVContainer);
+}
+
+void MusicPlayer::applyDefaultStyles()
+{
+
+	positionSlider->setMinimumWidth(150);
+	positionSlider->setMaximumWidth(150);
+
+	trackImage->setFixedSize(200, 200);
+	trackImage->setStyleSheet("background-color: #2c2c2c;");
+
+	trackInfoContainer->setAlignment(Qt::AlignCenter);
+	trackName->setAlignment(Qt::AlignCenter);
+	centerWrapper->setAlignment(Qt::AlignCenter);
+
+	centerWrapper->insertStretch(0, 1);
+	centerWrapper->insertStretch(2, 1);
+
+	timeSliderContainer->insertStretch(0, 1);
+	timeSliderContainer->insertStretch(4, 1);
+
+	mainlayout->setContentsMargins(20, 20, 20, 20);
+	mainlayout->setSpacing(5);
 }
 
 void MusicPlayer::setConnect()

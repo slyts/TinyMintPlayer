@@ -16,16 +16,30 @@ class MusicPlayer : public QWidget
 	Q_OBJECT
 private:
 	ApplicationSettings settings;
-	
-	QVBoxLayout* layout;
+
+	QMediaPlayer* player;
+	QAudioOutput* audioOutput;
+
+	QVBoxLayout* mainlayout;
+	QVBoxLayout* playerVContainer;
+	QHBoxLayout* playerHContainer;
+	QVBoxLayout* trackInfoContainer;
+	QHBoxLayout* timeSliderContainer;
+	QVBoxLayout* infoAndTrackContainer;
+	QHBoxLayout* centerWrapper;
 
 	QPushButton* startButton;
 	QPushButton* openButton;
-	QMediaPlayer* player;
-	QAudioOutput* audioOutput;
+	QPushButton* nextTrack;
+	QPushButton* previousTrack;
+
 	QSlider* volumeSlider;
 	QSlider* positionSlider;
-	QLabel* timeLabel;
+
+	QLabel* timeLabelStart;
+	QLabel* timeLabelEnd;
+	QLabel* trackName;
+	QLabel* trackImage;
 	
 	bool isPaused = true;
 
@@ -35,6 +49,12 @@ private:
 	void setupUi();
 	void setConnect();
 	void configureMedia();
+
+	void setupTrackInfoArea();
+	void setupTimeSliderArea();
+	void setupButtonsArea();
+	void setupLayouts();
+	void applyDefaultStyles();
 
 public:
 	MusicPlayer(QWidget* parent = nullptr);
