@@ -11,7 +11,12 @@ void MusicPlayer::setAppSettings()
 
 void MusicPlayer::createObjects()
 {
-	mainlayout = new QVBoxLayout(this);
+	playlist = new Playlist(this);
+
+	mainVlayout = new QVBoxLayout();
+	mainHlayout = new QHBoxLayout(this);
+
+
 	playerVContainer = new QVBoxLayout();
 	playerHContainer = new QHBoxLayout();
 	trackInfoContainer = new QVBoxLayout();
@@ -22,9 +27,13 @@ void MusicPlayer::createObjects()
 	audioOutput = new QAudioOutput(this);
 
 	startButton = new QPushButton("Старт", this);
-	openButton = new QPushButton("Открыть Файл", this);
-	nextTrack = new QPushButton("След. Трек", this);
-	previousTrack = new QPushButton("Пред. Трек", this);
+	openButton = new QPushButton("Открыть Файл", this); // временно
+	nextTrack = new QPushButton("next", this);
+	previousTrack = new QPushButton("prev", this);
+	playlistButton = new QPushButton("list", this);
+	volumeButton = new QPushButton("vol", this);
+	loopButton = new QPushButton("Цикл", this);
+	mixButton = new QPushButton("mix", this);
 
 	volumeSlider = new QSlider(Qt::Vertical, this);
 
@@ -64,27 +73,36 @@ void MusicPlayer::setupTimeSliderArea()
 
 void MusicPlayer::setupButtonsArea()
 {
+	playerHContainer->addWidget(loopButton);
+	playerHContainer->addWidget(mixButton);
 	playerHContainer->addWidget(previousTrack);
 	playerHContainer->addWidget(startButton);
 	playerHContainer->addWidget(nextTrack);
+	playerHContainer->addWidget(volumeButton);
+	playerHContainer->addWidget(playlistButton);
 
 	playerVContainer->addWidget(openButton);
 }
 
 void MusicPlayer::setupLayouts()
 {
+
 	infoBlockContainer->addLayout(trackInfoContainer);
 	infoBlockContainer->addLayout(timeSliderContainer);
 
 	playerVContainer->addLayout(playerHContainer);
 
-	mainlayout->addLayout(infoBlockContainer);
+	mainVlayout->addLayout(infoBlockContainer);
+	mainVlayout->addLayout(playerVContainer);
 
-	mainlayout->addLayout(playerVContainer);
+	mainHlayout->addLayout(mainVlayout);
+	mainHlayout->addWidget(playlist);
 }
 
 void MusicPlayer::applyDefaultStyles()
 {
+	playlist->hide();
+
 	trackImage->setFixedSize(200, 200);
 	trackImage->setStyleSheet("background-color: #2c2c2c;");
 
@@ -100,8 +118,8 @@ void MusicPlayer::applyDefaultStyles()
 	positionSlider->setMinimumWidth(150);
 	positionSlider->setMaximumWidth(150);
 
-	mainlayout->setContentsMargins(20, 20, 20, 20);
-	mainlayout->setSpacing(5);
+	mainVlayout->setContentsMargins(20, 20, 20, 20);
+	mainVlayout->setSpacing(5);
 }
 
 void MusicPlayer::setConnect()
@@ -112,6 +130,14 @@ void MusicPlayer::setConnect()
 	connect(player, &QMediaPlayer::positionChanged, this, &MusicPlayer::onPositionChanged);
 	connect(player, &QMediaPlayer::durationChanged, this, &MusicPlayer::onDurationChanged);
 	connect(positionSlider, &QSlider::sliderReleased, this, &MusicPlayer::onSliderPosition);
+	connect(playlistButton, &QPushButton::clicked, this, &MusicPlayer::onPlaylistButtonCliked);
+	connect(playlist, &Playlist::trackSelected, this, [this](const QString& filePath)
+		{
+			QFileInfo trackInfo(filePath);
+			player->setSource(QUrl::fromLocalFile(filePath));
+			trackName->setText(QString(trackInfo.baseName()));
+			player->play();
+		});
 }
 
 void MusicPlayer::configureMedia()
@@ -146,7 +172,7 @@ void MusicPlayer::onPlayClicked()
 	}
 }
 
-void MusicPlayer::onOpenFileClicked()
+void MusicPlayer::onOpenFileClicked() // временное решение
 {
 	QString filePath = QFileDialog::getOpenFileName(
 		this, 
@@ -160,6 +186,7 @@ void MusicPlayer::onOpenFileClicked()
 		player->setSource(QUrl::fromLocalFile(filePath));
 		QFileInfo trackInfo(filePath);
 		trackName->setText(QString(trackInfo.baseName()));
+		playlist->addTrack(filePath);
 		isPaused = true;
 	}
 }
@@ -193,4 +220,25 @@ void MusicPlayer::onDurationChanged(qint64 value)
 void MusicPlayer::onSliderPosition()
 {
 	player->setPosition(positionSlider->value());
+}
+
+void MusicPlayer::onPlaylistButtonCliked()
+{
+	playlist->setVisible(!playlist->isVisible());
+	if (playlist->isVisible())
+	{
+		nextTrack->hide();
+		previousTrack->hide();
+		volumeButton->hide();
+		loopButton->hide();
+		mixButton->hide();
+	}
+	else
+	{
+		nextTrack->show();
+		previousTrack->show();
+		volumeButton->show();
+		loopButton->show();
+		mixButton->show();
+	}
 }

@@ -10,17 +10,20 @@
 #include <qlabel.h>
 
 #include "ApplicationSettings.h"
+#include "Playlist.h"
 
 class MusicPlayer : public QWidget
 {
 	Q_OBJECT
 private:
 	ApplicationSettings settings;
+	Playlist* playlist;
 
 	QMediaPlayer* player;
 	QAudioOutput* audioOutput;
 
-	QVBoxLayout* mainlayout;
+	QVBoxLayout* mainVlayout;
+	QHBoxLayout* mainHlayout;
 	QVBoxLayout* playerVContainer;
 	QHBoxLayout* playerHContainer;
 	QVBoxLayout* trackInfoContainer;
@@ -31,6 +34,10 @@ private:
 	QPushButton* openButton;
 	QPushButton* nextTrack;
 	QPushButton* previousTrack;
+	QPushButton* playlistButton;
+	QPushButton* volumeButton;
+	QPushButton* loopButton;
+	QPushButton* mixButton;
 
 	QSlider* volumeSlider;
 	QSlider* positionSlider;
@@ -66,6 +73,7 @@ private slots:
 	void onDurationChanged(qint64 value);
 	void onPositionChanged(qint64 value);
 	void onSliderPosition();
+	void onPlaylistButtonCliked();
 
 };
 

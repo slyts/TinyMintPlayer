@@ -18,12 +18,14 @@ set(SOURCES
 	Application.cpp
 	MusicPlayer.cpp
 	ApplicationSettings.cpp
+	Playlist.cpp
 )
 
 set(HEADERS
 	Application.h
 	MusicPlayer.h
 	ApplicationSettings.h
+	Playlist.h
 )
 
 qt_add_executable(TinyMint_Player ${SOURCES} ${HEADERS})
