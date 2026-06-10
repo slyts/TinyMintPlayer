@@ -27,3 +27,7 @@ target_link_libraries(TinyMint_Player PRIVATE
 	Qt6::Widgets
 	Qt6::Multimedia
 )
+
+set_target_properties(TinyMint_Player PROPERTIES
+    WIN32_EXECUTABLE TRUE
+)

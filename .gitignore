@@ -27,3 +27,4 @@ CMakeUserPresets.json
 # Другое
 build/
 *.tmp
+*.bat
