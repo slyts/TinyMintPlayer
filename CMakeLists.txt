@@ -20,7 +20,13 @@ set(SOURCES
 	ApplicationSettings.cpp
 )
 
-qt_add_executable(TinyMint_Player ${SOURCES})
+set(HEADERS
+	Application.h
+	MusicPlayer.h
+	ApplicationSettings.h
+)
+
+qt_add_executable(TinyMint_Player ${SOURCES} ${HEADERS})
 
 target_link_libraries(TinyMint_Player PRIVATE
 	Qt6::Core
