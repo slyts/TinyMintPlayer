@@ -16,8 +16,7 @@ void MusicPlayer::createObjects()
 	playerHContainer = new QHBoxLayout();
 	trackInfoContainer = new QVBoxLayout();
 	timeSliderContainer = new QHBoxLayout();
-	infoAndTrackContainer = new QVBoxLayout();
-	centerWrapper = new QHBoxLayout();
+	infoBlockContainer = new QVBoxLayout();
 
 	player = new QMediaPlayer(this);
 	audioOutput = new QAudioOutput(this);
@@ -69,35 +68,37 @@ void MusicPlayer::setupButtonsArea()
 	playerHContainer->addWidget(startButton);
 	playerHContainer->addWidget(nextTrack);
 
-	playerVContainer->addLayout(playerHContainer);
 	playerVContainer->addWidget(openButton);
 }
 
 void MusicPlayer::setupLayouts()
 {
-	mainlayout->addLayout(trackInfoContainer);
+	infoBlockContainer->addLayout(trackInfoContainer);
+	infoBlockContainer->addLayout(timeSliderContainer);
+
+	playerVContainer->addLayout(playerHContainer);
+
+	mainlayout->addLayout(infoBlockContainer);
 	mainlayout->addLayout(timeSliderContainer);
 	mainlayout->addLayout(playerVContainer);
 }
 
 void MusicPlayer::applyDefaultStyles()
 {
-
-	positionSlider->setMinimumWidth(150);
-	positionSlider->setMaximumWidth(150);
-
 	trackImage->setFixedSize(200, 200);
 	trackImage->setStyleSheet("background-color: #2c2c2c;");
 
 	trackInfoContainer->setAlignment(Qt::AlignCenter);
 	trackName->setAlignment(Qt::AlignCenter);
-	centerWrapper->setAlignment(Qt::AlignCenter);
 
-	centerWrapper->insertStretch(0, 1);
-	centerWrapper->insertStretch(2, 1);
+	infoBlockContainer->insertStretch(0, 1);
+	infoBlockContainer->insertStretch(3, 1);
 
 	timeSliderContainer->insertStretch(0, 1);
 	timeSliderContainer->insertStretch(4, 1);
+
+	positionSlider->setMinimumWidth(150);
+	positionSlider->setMaximumWidth(150);
 
 	mainlayout->setContentsMargins(20, 20, 20, 20);
 	mainlayout->setSpacing(5);

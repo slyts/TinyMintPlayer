@@ -25,8 +25,7 @@ private:
 	QHBoxLayout* playerHContainer;
 	QVBoxLayout* trackInfoContainer;
 	QHBoxLayout* timeSliderContainer;
-	QVBoxLayout* infoAndTrackContainer;
-	QHBoxLayout* centerWrapper;
+	QVBoxLayout* infoBlockContainer;
 
 	QPushButton* startButton;
 	QPushButton* openButton;
