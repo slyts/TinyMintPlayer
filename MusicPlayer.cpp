@@ -159,7 +159,6 @@ void MusicPlayer::onOpenFileClicked()
 	{
 		player->setSource(QUrl::fromLocalFile(filePath));
 		QFileInfo trackInfo(filePath);
-		//QString trackBaseName = trackInfo.baseName();
 		trackName->setText(QString(trackInfo.baseName()));
 		isPaused = true;
 	}
@@ -176,11 +175,19 @@ void MusicPlayer::onPositionChanged(qint64 value)
 	if (!positionSlider->isSliderDown()) {
 		positionSlider->setValue(value);
 	}
+
+	QTime time(0, 0, 0);
+	time = time.addMSecs(value);
+	timeLabelStart->setText(time.toString("mm:ss"));
 }
 
 void MusicPlayer::onDurationChanged(qint64 value)
 {
 	positionSlider->setRange(0, value);
+
+	QTime time(0, 0, 0);
+	time = time.addMSecs(value);
+	timeLabelEnd->setText(time.toString("mm:ss"));
 }
 
 void MusicPlayer::onSliderPosition()
