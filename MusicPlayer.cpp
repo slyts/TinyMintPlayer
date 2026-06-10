@@ -79,7 +79,7 @@ void MusicPlayer::setupLayouts()
 	playerVContainer->addLayout(playerHContainer);
 
 	mainlayout->addLayout(infoBlockContainer);
-	mainlayout->addLayout(timeSliderContainer);
+
 	mainlayout->addLayout(playerVContainer);
 }
 
