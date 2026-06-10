@@ -8,7 +8,7 @@ class ApplicationSettings
 {
 private:
 	QString title = "TinyMint Player";
-	QSize screenSize = { 380,700 };
+	QSize screenSize = { 600,700 };
 
 public:
 	ApplicationSettings();
