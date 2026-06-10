@@ -158,6 +158,9 @@ void MusicPlayer::onOpenFileClicked()
 	if (!filePath.isEmpty())
 	{
 		player->setSource(QUrl::fromLocalFile(filePath));
+		QFileInfo trackInfo(filePath);
+		//QString trackBaseName = trackInfo.baseName();
+		trackName->setText(QString(trackInfo.baseName()));
 		isPaused = true;
 	}
 }
