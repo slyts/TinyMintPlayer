@@ -137,6 +137,7 @@ void MusicPlayer::setConnect()
 			player->setSource(QUrl::fromLocalFile(filePath));
 			trackName->setText(QString(trackInfo.baseName()));
 			player->play();
+			isPaused = false;
 		});
 }
 
