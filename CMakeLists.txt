@@ -14,18 +14,28 @@ find_package(Qt6 REQUIRED COMPONENTS
 qt_standard_project_setup()
 
 set(SOURCES
-	main.cpp
-	Application.cpp
-	MusicPlayer.cpp
-	ApplicationSettings.cpp
-	Playlist.cpp
+	src/main.cpp
+	src/Application.cpp
+	src/MusicPlayer.cpp
+	src/ApplicationSettings.cpp
+	
+	src/ui/MusicPlayerUI.cpp
+	
+	src/logic/MusicPlayerLogic.cpp
+	
+	src/models/Playlist.cpp
 )
 
 set(HEADERS
-	Application.h
-	MusicPlayer.h
-	ApplicationSettings.h
-	Playlist.h
+	src/Application.h
+	src/MusicPlayer.h
+	src/ApplicationSettings.h
+	
+	src/ui/MusicPlayerUI.h
+	
+	src/logic/MusicPlayerLogic.h
+	
+	src/models/Playlist.h
 )
 
 qt_add_executable(TinyMint_Player ${SOURCES} ${HEADERS})

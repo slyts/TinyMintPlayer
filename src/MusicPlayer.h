@@ -10,7 +10,7 @@
 #include <qlabel.h>
 
 #include "ApplicationSettings.h"
-#include "Playlist.h"
+#include "models/Playlist.h"
 
 class MusicPlayer : public QWidget
 {
