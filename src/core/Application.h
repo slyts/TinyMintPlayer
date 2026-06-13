@@ -1,12 +1,12 @@
 #ifndef APPLICATION_H
 #define APPLICATION_H
 
-#include "MusicPlayer.h"
+#include "../components/musicplayer/MusicPlayerConnector.h"
 
 class Application
 {
 private:
-	MusicPlayer player;
+	MusicPlayerConnector* player;
 public:
 	void init();
 };

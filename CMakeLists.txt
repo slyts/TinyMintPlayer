@@ -14,28 +14,32 @@ find_package(Qt6 REQUIRED COMPONENTS
 qt_standard_project_setup()
 
 set(SOURCES
-	src/main.cpp
-	src/Application.cpp
-	src/MusicPlayer.cpp
-	src/ApplicationSettings.cpp
+	src/core/main.cpp
+	src/core/Application.cpp
 	
-	src/ui/MusicPlayerUI.cpp
+	src/models/ApplicationSettings.cpp
 	
-	src/logic/MusicPlayerLogic.cpp
+	src/components/musicplayer/MusicPlayerConnector.cpp
+	src/components/musicplayer/MusicPlayerUI.cpp
+	src/components/musicplayer/MusicPlayerLogic.cpp
 	
-	src/models/Playlist.cpp
+	#src/components/playlist/PlaylistConnector.cpp
+	#src/components/playlist/PlaylistUI.cpp
+	#src/components/playlist/PlaylistLogic.cpp
 )
 
 set(HEADERS
-	src/Application.h
-	src/MusicPlayer.h
-	src/ApplicationSettings.h
+	src/core/Application.h
 	
-	src/ui/MusicPlayerUI.h
+	src/models/ApplicationSettings.h
 	
-	src/logic/MusicPlayerLogic.h
+	src/components/musicplayer/MusicPlayerConnector.h
+	src/components/musicplayer/MusicPlayerUI.h
+	src/components/musicplayer/MusicPlayerLogic.h
 	
-	src/models/Playlist.h
+	#src/components/playlist/PlaylistConnector.h
+	#src/components/playlist/PlaylistUI.h
+	#src/components/playlist/PlaylistLogic.h
 )
 
 qt_add_executable(TinyMint_Player ${SOURCES} ${HEADERS})
@@ -47,5 +51,5 @@ target_link_libraries(TinyMint_Player PRIVATE
 )
 
 set_target_properties(TinyMint_Player PROPERTIES
-    WIN32_EXECUTABLE TRUE
+	WIN32_EXECUTABLE TRUE
 )
