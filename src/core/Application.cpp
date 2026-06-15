@@ -2,6 +2,9 @@
 
 void Application::init()
 {
-	player = new MusicPlayerConnector();
-	player->getUi()->show();
+	playerConnector = new MusicPlayerConnector();
+	playlistConnector = new PlaylistConnector();
+
+	playerConnector->getUi()->show();
+	playerConnector->merge(playlistConnector);
 }

@@ -1,4 +1,5 @@
 #include "MusicPlayerLogic.h"
+#include <qfileinfo.h>
 
 MusicPlayerLogic::MusicPlayerLogic(QObject* parent) : QObject(parent)
 {
@@ -53,3 +54,9 @@ void MusicPlayerLogic::setPositionSlider(qint64 value)
 	player->setPosition(value);
 }
 
+void MusicPlayerLogic::playlistPlay(QString filePath)
+{
+	player->setSource(QUrl::fromLocalFile(filePath));
+	player->play();
+	isPaused = false;
+}

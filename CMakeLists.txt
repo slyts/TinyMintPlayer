@@ -23,9 +23,9 @@ set(SOURCES
 	src/components/musicplayer/MusicPlayerUI.cpp
 	src/components/musicplayer/MusicPlayerLogic.cpp
 	
-	#src/components/playlist/PlaylistConnector.cpp
-	#src/components/playlist/PlaylistUI.cpp
-	#src/components/playlist/PlaylistLogic.cpp
+	src/components/playlist/PlaylistConnector.cpp
+	src/components/playlist/PlaylistUI.cpp
+	src/components/playlist/PlaylistLogic.cpp
 )
 
 set(HEADERS
@@ -37,9 +37,11 @@ set(HEADERS
 	src/components/musicplayer/MusicPlayerUI.h
 	src/components/musicplayer/MusicPlayerLogic.h
 	
-	#src/components/playlist/PlaylistConnector.h
-	#src/components/playlist/PlaylistUI.h
-	#src/components/playlist/PlaylistLogic.h
+	src/components/playlist/PlaylistConnector.h
+	src/components/playlist/PlaylistUI.h
+	src/components/playlist/PlaylistLogic.h
+
+	src/components/IConnector.h
 )
 
 qt_add_executable(TinyMint_Player ${SOURCES} ${HEADERS})

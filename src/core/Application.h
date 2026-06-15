@@ -2,11 +2,13 @@
 #define APPLICATION_H
 
 #include "../components/musicplayer/MusicPlayerConnector.h"
+#include "../components/playlist/PlaylistConnector.h"
 
 class Application
 {
 private:
-	MusicPlayerConnector* player;
+	MusicPlayerConnector* playerConnector;
+	PlaylistConnector* playlistConnector;
 public:
 	void init();
 };

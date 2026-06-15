@@ -25,12 +25,13 @@ public slots:
 	void play();
 	void openFile(QString filePath);
 	void setPositionSlider(qint64 value);
+	void playlistPlay(QString filePath);
 
 signals:
 	void positionChanged(qint64 ms);
 	void durationChanged(qint64 ms);
 	void playClicked(bool isPaused);
-
+	void fileOpened(QString filePath);
 };
 
 #endif // !MUSICPLAYERLOGIC_H

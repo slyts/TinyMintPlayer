@@ -1,16 +1,16 @@
 #include <qfileinfo.h>
-#include "Playlist.h"
+#include "PlaylistUI.h"
 
-void Playlist::getTrack()
-{}
-
-void Playlist::getTrackList()
-{}
-
-void Playlist::addTrack(const QString & filepath)
+PlaylistUI::PlaylistUI(QWidget* parent) : QListWidget(parent)
 {
-	trackList.append(QUrl(filepath));
+	connect(this, &QListWidget::itemClicked, this, &PlaylistUI::onItemClicked);
+}
 
+PlaylistUI::~PlaylistUI()
+{}
+
+void PlaylistUI::addTrackUI(const QString & filepath)
+{
 	QFileInfo fileInfo(filepath);
 	QString displayName = fileInfo.baseName();
 
@@ -20,22 +20,8 @@ void Playlist::addTrack(const QString & filepath)
 	this->addItem(item);
 }
 
-void Playlist::removeTrack(int index)
-{}
-
-void Playlist::clear()
-{}
-
-void Playlist::onItemClicked(QListWidgetItem* item)
+void PlaylistUI::onItemClicked(QListWidgetItem* item)
 {
 	QString filepath = item->data(Qt::UserRole).toString();
 	emit trackSelected(filepath);
 }
-
-Playlist::Playlist(QWidget* parent) : QListWidget(parent)
-{
-	connect(this, &QListWidget::itemClicked, this, &Playlist::onItemClicked);
-}
-
-Playlist::~Playlist()
-{}

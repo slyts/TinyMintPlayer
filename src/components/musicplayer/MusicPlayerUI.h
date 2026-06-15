@@ -16,6 +16,7 @@ class MusicPlayerUI : public QWidget
 
 private:
 	ApplicationSettings settings;
+	QWidget* playlistWidget;
 
 	QVBoxLayout* mainVlayout;
 	QHBoxLayout* mainHlayout;
@@ -60,6 +61,8 @@ public:
 	MusicPlayerUI(QWidget* parent = nullptr);
 	~MusicPlayerUI();
 
+	void setPlaylistWidget(QWidget* widget);
+
 public slots:
 	void onOpenFileClicked();
 	void onClickPlay();
@@ -70,6 +73,8 @@ public slots:
 	void updatePosition(qint64 value);
 	void updateDuration(qint64 value);
 	void updateStartButton(bool isPaused);
+	void onPlaylistButtonCliked();
+	void playlistPlay(const QString file);
 
 signals:
 	void playClicked();

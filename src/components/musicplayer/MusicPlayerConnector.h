@@ -5,23 +5,23 @@
 
 #include "MusicPlayerUI.h"
 #include "MusicPlayerLogic.h"
+#include "../playlist/PlaylistConnector.h"
+#include "../IConnector.h"
 
-//class PlaylistConnector;
-
-class MusicPlayerConnector : public QObject
+class MusicPlayerConnector : public QObject, public IConnector
 {
 	Q_OBJECT
 private:
 	MusicPlayerLogic* logic;
 	MusicPlayerUI* ui;
 
-	void connectMusicplayerUI();
-	void connectMusicplayerLogic();
+	void connectUI() override;
+	void connectLogic() override;
 
 public:
 	MusicPlayerConnector(QWidget* parent = nullptr);
 
-	//void merge(PlaylistConnector* playlist);
+	void merge(PlaylistConnector* playlist);
 
 	MusicPlayerUI* getUi() const { return ui; }
 	MusicPlayerLogic* getLogic() const { return logic; }

@@ -7,25 +7,18 @@
 #include <qurl.h>
 
 
-class Playlist : public QListWidget
+class PlaylistUI : public QListWidget
 {
 	Q_OBJECT
 
 private:
-	QVector<QUrl> trackList;
-	int currentTrackIndex;
-
 	QSize windowSize = { 600, 700 };
+
 public:
-	Playlist(QWidget* parent = nullptr);
-	~Playlist();
+	PlaylistUI(QWidget* parent = nullptr);
+	~PlaylistUI();
 
-	void getTrack();
-	void getTrackList();
-
-	void addTrack(const QString& filepath);
-	void removeTrack(int index);
-	void clear();
+	void addTrackUI(const QString& filepath);
 
 private slots:
 	void onItemClicked(QListWidgetItem* item);

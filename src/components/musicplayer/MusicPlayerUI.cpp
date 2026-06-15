@@ -13,6 +13,16 @@ MusicPlayerUI::MusicPlayerUI(QWidget* parent) : QWidget(parent)
 MusicPlayerUI::~MusicPlayerUI()
 {}
 
+void MusicPlayerUI::setPlaylistWidget(QWidget * widget)
+{
+	playlistWidget = widget;
+	if (playlistWidget)
+	{
+		playlistWidget->hide();
+		mainHlayout->addWidget(playlistWidget);
+	}
+}
+
 void MusicPlayerUI::setAppSettings()
 {
 	setWindowTitle(settings.getTitle());
@@ -98,12 +108,10 @@ void MusicPlayerUI::setupLayouts()
 	mainVlayout->addLayout(playerVContainer);
 
 	mainHlayout->addLayout(mainVlayout);
-	//mainHlayout->addWidget(playlist); //TODO: после создания playlist model/view раскоментить
 }
 
 void MusicPlayerUI::applyDefaultStyles()
 {
-	//playlist->hide();//TODO: после создания playlist model/view раскоментить
 
 	trackImage->setFixedSize(200, 200);
 	trackImage->setStyleSheet("background-color: #2c2c2c;");
@@ -138,9 +146,8 @@ void MusicPlayerUI::setConnect()
 	connect(positionSlider, &QSlider::sliderPressed, this, &MusicPlayerUI::onSliderPressed);
 	connect(positionSlider, &QSlider::sliderMoved, this, &MusicPlayerUI::onSliderMoved);
 	connect(positionSlider, &QSlider::sliderReleased, this, &MusicPlayerUI::onSliderReleased);
+	connect(playlistButton, &QPushButton::clicked, this, &MusicPlayerUI::onPlaylistButtonCliked);
 }
-
-
 
 // -- slots --
 void MusicPlayerUI::onOpenFileClicked()
@@ -206,4 +213,32 @@ void MusicPlayerUI::updateStartButton(bool isPaused)
 	{
 		startButton->setText("Старт");
 	}
+}
+
+void MusicPlayerUI::onPlaylistButtonCliked()
+{
+	playlistWidget->setVisible(!playlistWidget->isVisible());
+	if (playlistWidget->isVisible())
+	{
+		nextTrack->hide();
+		previousTrack->hide();
+		volumeButton->hide();
+		loopButton->hide();
+		mixButton->hide();
+	}
+	else
+	{
+		nextTrack->show();
+		previousTrack->show();
+		volumeButton->show();
+		loopButton->show();
+		mixButton->show();
+	}
+}
+
+void MusicPlayerUI::playlistPlay(const QString filePath)
+{
+	startButton->setText("Пауза");
+	QFileInfo trackInfo(filePath);
+	trackName->setText(QString(trackInfo.baseName()));
 }
