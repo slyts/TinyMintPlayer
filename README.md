@@ -8,10 +8,11 @@ A desktop music player using Qt6 and C++17. My tutorial project for learning GUI
 - Volume control
 - Rewind/Seek position slider
 - Open file dialog
+- Playlist
 
 ## Plans
 
-- Playlist
+
 - Next/Previous buttons
 - Time display
 
@@ -51,10 +52,11 @@ cmake --build . --config Release
 - Регулировка громкости
 - Ползунок позиции (перемотка)
 - Диалог открытия файла
+- Плейлист
 
 ## В планах
 
-- Плейлист
+
 - Кнопки Следующий/Предыдущий
 - Отображение времени
 
